@@ -1,0 +1,324 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="A web semantics project exploring how cycling concepts can be described and connected as linked data.">
+	<title>Jiboy Cycling Ontology | Web Semantics</title>
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+	<style>
+		:root {
+			color-scheme: light;
+			--ink: #172b25;
+			--muted: #61716b;
+			--paper: #f4f6ef;
+			--green: #1c5845;
+			--lime: #d4e875;
+			--line: #d9dfd5;
+			--mono: "DM Mono", monospace;
+			--sans: "Manrope", "Segoe UI", sans-serif;
+		}
+
+		* { box-sizing: border-box; }
+
+		body {
+			margin: 0;
+			background: var(--paper);
+			color: var(--ink);
+			font-family: var(--sans);
+			-webkit-font-smoothing: antialiased;
+		}
+
+		a { color: inherit; }
+
+		.page-shell {
+			width: min(1160px, calc(100% - 64px));
+			margin: 0 auto;
+		}
+
+		.site-header {
+			min-height: 82px;
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			border-bottom: 1px solid var(--line);
+		}
+
+		.wordmark, .eyebrow, .section-index, .footer-note {
+			font-family: var(--mono);
+			font-size: 11px;
+			letter-spacing: 0;
+			text-transform: uppercase;
+		}
+
+		.wordmark {
+			display: flex;
+			align-items: center;
+			gap: 11px;
+			font-weight: 500;
+		}
+
+		.mark {
+			width: 30px;
+			height: 30px;
+			display: grid;
+			place-items: center;
+			border-radius: 50%;
+			background: var(--lime);
+			color: var(--ink);
+			font-size: 15px;
+		}
+
+		.header-note { color: var(--muted); }
+
+		.hero {
+			display: grid;
+			grid-template-columns: 1fr 0.92fr;
+			gap: 54px;
+			align-items: center;
+			padding: 76px 0 72px;
+		}
+
+		.eyebrow { color: var(--green); }
+
+		h1 {
+			max-width: 650px;
+			margin: 19px 0 20px;
+			font-size: clamp(42px, 6vw, 76px);
+			line-height: 0.99;
+			font-weight: 700;
+		}
+
+		h1 span { color: var(--green); }
+
+		.intro {
+			max-width: 510px;
+			margin: 0;
+			color: var(--muted);
+			font-size: 17px;
+			line-height: 1.75;
+		}
+
+		.hero-image-wrap {
+			position: relative;
+			min-height: 390px;
+			background: #d5dfd4;
+		}
+
+		.hero-image-wrap::after {
+			position: absolute;
+			right: -12px;
+			bottom: -12px;
+			width: 72px;
+			height: 72px;
+			border-right: 2px solid var(--green);
+			border-bottom: 2px solid var(--green);
+			content: "";
+		}
+
+		.hero-image {
+			width: 100%;
+			height: 390px;
+			display: block;
+			object-fit: cover;
+			object-position: center;
+		}
+
+		.caption {
+			position: absolute;
+			left: 16px;
+			bottom: 16px;
+			padding: 9px 12px;
+			background: var(--paper);
+			font-family: var(--mono);
+			font-size: 10px;
+			text-transform: uppercase;
+		}
+
+		.focus {
+			display: grid;
+			grid-template-columns: 0.8fr 1.2fr;
+			gap: 64px;
+			padding: 34px 0 44px;
+			border-top: 1px solid var(--line);
+		}
+
+		.focus h2, .source h2 {
+			margin: 8px 0 0;
+			font-size: 27px;
+			line-height: 1.2;
+		}
+
+		.focus-copy {
+			margin: 0;
+			color: var(--muted);
+			font-size: 15px;
+			line-height: 1.8;
+		}
+
+		.concepts {
+			display: grid;
+			grid-template-columns: repeat(3, 1fr);
+			border-top: 1px solid var(--line);
+			border-bottom: 1px solid var(--line);
+		}
+
+		.concept {
+			min-height: 128px;
+			padding: 22px 24px 24px 0;
+		}
+
+		.concept + .concept {
+			padding-left: 24px;
+			border-left: 1px solid var(--line);
+		}
+
+		.section-index { color: var(--green); }
+
+		.concept h3 {
+			margin: 17px 0 5px;
+			font-size: 18px;
+		}
+
+		.concept p {
+			margin: 0;
+			color: var(--muted);
+			font-size: 13px;
+			line-height: 1.6;
+		}
+
+		.source {
+			display: flex;
+			align-items: end;
+			justify-content: space-between;
+			gap: 24px;
+			padding: 54px 0;
+		}
+
+		.source h2 { margin-top: 8px; }
+
+		.source-link {
+			display: inline-flex;
+			align-items: center;
+			gap: 18px;
+			padding: 14px 18px;
+			background: var(--green);
+			color: white;
+			font-size: 14px;
+			font-weight: 600;
+			text-decoration: none;
+		}
+
+		.source-link:hover { background: #123f31; }
+		.source-link:focus-visible { outline: 3px solid var(--lime); outline-offset: 3px; }
+		.source-link span { color: var(--lime); font-size: 18px; }
+
+		.site-footer {
+			min-height: 62px;
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			border-top: 1px solid var(--line);
+			color: var(--muted);
+		}
+
+		.footer-note { font-size: 10px; }
+
+		@media (max-width: 760px) {
+			.page-shell { width: min(100% - 40px, 560px); }
+			.site-header { min-height: 68px; }
+			.header-note { display: none; }
+			.hero { grid-template-columns: 1fr; gap: 34px; padding: 52px 0 55px; }
+			.hero-image-wrap, .hero-image { min-height: 280px; height: 280px; }
+			.focus { grid-template-columns: 1fr; gap: 16px; }
+			.concepts { grid-template-columns: 1fr; }
+			.concept { min-height: auto; padding: 20px 0; }
+			.concept + .concept { padding-left: 0; border-left: 0; border-top: 1px solid var(--line); }
+			.concept h3 { margin-top: 10px; }
+			.source { align-items: start; flex-direction: column; padding: 42px 0; }
+		}
+
+		@media (prefers-reduced-motion: no-preference) {
+			.hero-copy, .hero-image-wrap, .focus, .concepts, .source {
+				animation: arrive 650ms both;
+			}
+			.hero-image-wrap { animation-delay: 90ms; }
+			.focus { animation-delay: 140ms; }
+			.concepts { animation-delay: 190ms; }
+			.source { animation-delay: 240ms; }
+			@keyframes arrive {
+				from { opacity: 0; transform: translateY(10px); }
+				to { opacity: 1; transform: translateY(0); }
+			}
+		}
+	</style>
+</head>
+<body>
+	<div class="page-shell">
+		<header class="site-header">
+			<a class="wordmark" href="#top" aria-label="Jiboy Cycling Ontology home">
+				<span class="mark" aria-hidden="true">J</span>
+				<span>Jiboy / Web Semantics</span>
+			</a>
+			<span class="header-note wordmark">A cycling knowledge model</span>
+		</header>
+
+		<main id="top">
+			<section class="hero" aria-labelledby="page-title">
+				<div class="hero-copy">
+					<p class="eyebrow">Semantic Web Project / 01</p>
+					<h1 id="page-title">Cycling,<br><span>connected.</span></h1>
+					<p class="intro">A small exploration of how cycling knowledge can be described on the web: with clear concepts, shared meaning, and links between things.</p>
+				</div>
+				<figure class="hero-image-wrap">
+					<img class="hero-image" src="https://images.unsplash.com/photo-1532298229144-0ec0c57515c7?auto=format&amp;fit=crop&amp;w=1200&amp;q=85" alt="A road bicycle ready for a ride">
+					<figcaption class="caption">Jiboy Cycling Ontology</figcaption>
+				</figure>
+			</section>
+
+			<section class="focus" aria-labelledby="focus-title">
+				<div>
+					<p class="eyebrow">The idea</p>
+					<h2 id="focus-title">Give cycling data a shared language.</h2>
+				</div>
+				<p class="focus-copy">An ontology gives information a structure that both people and software can understand. This project uses cycling as its subject, with room to describe riders, bicycles, and the routes that connect them.</p>
+			</section>
+
+			<section class="concepts" aria-label="Areas of the cycling model">
+				<article class="concept">
+					<span class="section-index">01 / People</span>
+					<h3>Riders</h3>
+					<p>The people and roles involved in a ride.</p>
+				</article>
+				<article class="concept">
+					<span class="section-index">02 / Equipment</span>
+					<h3>Bicycles</h3>
+					<p>The machines and parts used for cycling.</p>
+				</article>
+				<article class="concept">
+					<span class="section-index">03 / Places</span>
+					<h3>Routes</h3>
+					<p>The paths, places, and journeys of a ride.</p>
+				</article>
+			</section>
+
+			<section class="source" aria-labelledby="source-title">
+				<div>
+					<p class="eyebrow">Project file</p>
+					<h2 id="source-title">Explore the ontology source.</h2>
+				</div>
+				<a class="source-link" href="cycling/jiboy-cycling.owl">
+					Open OWL file <span aria-hidden="true">↗</span>
+				</a>
+			</section>
+		</main>
+
+		<footer class="site-footer">
+			<span class="wordmark">Jiboy Cycling Ontology</span>
+			<span class="footer-note">Web Semantics · 2026</span>
+		</footer>
+	</div>
+</body>
+</html>
